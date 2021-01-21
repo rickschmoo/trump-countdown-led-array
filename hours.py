@@ -19,12 +19,16 @@ while True:
     rd = relativedelta(datetime.datetime(2021,1,20, 9, 0, 0), datetime.datetime.now())
 
     if rd.minutes == 1:
-        minstring = "minute"
+        minstring = "+minute..."
     else:
-        minstring = "minutes"
-    print (str(rd.hours) + " hours " + str(rd.minutes) + " minutes")
+        minstring = "+minutes..."
+    if rd.hours == 1:
+        hourstring = "+hour,+"
+    else:
+        hourstring = "+hours,+"
+    print (str(rd.hours) + hourstring + str(rd.minutes) + minstring)
 
-    url = led_server + "/text?t=" + str(rd.hours) + "+hours,+" + str(rd.minutes) + "+" + minstring + "..."
+    url = led_server + "/text?t=" + str(rd.hours) + hourstring + str(rd.minutes) + minstring 
     print(url);
     with urllib.request.urlopen(url) as response:
         html = response.read()
